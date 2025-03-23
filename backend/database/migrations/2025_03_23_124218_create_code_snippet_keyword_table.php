@@ -12,7 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('code_snippet_keyword', function (Blueprint $table) {
-            $table->id();
+            $table->foreignId('code_snippet_id')
+                ->constrained()
+                ->onDelete('cascade');
+            $table->foreignId('keyword_id')
+                ->constrained()
+                ->onDelete('cascade');
+            $table->primary(['code_snippet_id', 'keyword_id']);
             $table->timestamps();
         });
     }
