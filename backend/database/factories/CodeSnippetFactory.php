@@ -4,12 +4,13 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
+use App\Models\CodeSnippet;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\CodeSnippet>
  */
 class CodeSnippetFactory extends Factory
 {
-    
+
     protected $model = CodeSnippet::class;
     public function definition(): array
     {
