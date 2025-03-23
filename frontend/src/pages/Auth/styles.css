@@ -1,0 +1,50 @@
+
+::-webkit-scrollbar {
+    display: none;
+}
+.auth-page {
+    max-height: fit-content;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    padding: 1rem;
+}
+
+
+.auth-container {
+    border: 1px solid #3f3f3f;
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 0.75rem;
+}
+.auth-container h1, p{
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.auth-title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.link-container {
+    text-align: center;
+    margin-top: 1rem;
+}
+.link-container a:hover {
+    transition: 0.3s;
+    background-color: #ffa600;
+    color:white;
+    border-radius: 0.5rem;
+    padding: 0.2rem;
+    
+}
+.error {
+    color: red;
+}
+.success {
+    color: green;
+}
