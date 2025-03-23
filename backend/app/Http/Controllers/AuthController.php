@@ -41,5 +41,12 @@ class AuthController extends Controller
 
         return ApiResponseService::success('Signup successful', $user);
     }
+    public function validateToken(Request $request) {
+        $user = Auth::user();
+        if (!$user) {
+            return ApiResponseService::error('Unauthorized', 401);
+        }
+        return ApiResponseService::success('Token is valid', $user);
+    }
 
 }

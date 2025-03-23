@@ -17,6 +17,7 @@ Route::group(['prefix' => 'v0.1'], function () {
 
     Route::group(['prefix' => 'guest'], function () {
         //unauthenticated routes
+        Route::get('validate-token', [AuthController::class, 'validateToken']);
         Route::post('/login', [AuthController::class, 'login']);
         Route::post('/signup', [AuthController::class, 'signup']);
     });
