@@ -59,6 +59,16 @@ class User extends Authenticatable
     {
         return [];
     }
+     public function codeSnippets()
+    {
+        return $this->hasMany(CodeSnippet::class);
+    }
 
+
+    public function favorites()
+    {
+        return $this->belongsToMany(CodeSnippet::class, 'favorites');
+    }
 }
+
 
