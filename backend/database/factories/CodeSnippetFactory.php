@@ -9,11 +9,7 @@ use App\Models\User;
  */
 class CodeSnippetFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    
     protected $model = CodeSnippet::class;
     public function definition(): array
     {

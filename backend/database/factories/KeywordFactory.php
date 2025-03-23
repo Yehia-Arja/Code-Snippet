@@ -15,7 +15,6 @@ class KeywordFactory extends Factory
     public function definition(): array
     {
         return [
-            // Generate a unique word for the keyword name
             'name' => $this->faker->unique()->word,
         ];
     }
