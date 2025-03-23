@@ -6,7 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CodeSnippetController;
 
 Route::group(['prefix' => 'v0.1'], function () {
-    Route::group(['middleware' => 'auth::api'], function () {
+    Route::group([], function () {
         //authenticated routes
         Route::get('/code-snippets', [CodeSnippetController::class, 'index']);
         Route::post('/code-snippets', [CodeSnippetController::class, 'store']);

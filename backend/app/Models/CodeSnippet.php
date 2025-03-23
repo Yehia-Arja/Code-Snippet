@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\User;
+use App\Models\Tag;
+use App\Models\Keyword;
 class CodeSnippet extends Model
 {
     use HasFactory;
