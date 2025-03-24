@@ -50,4 +50,19 @@ class CodeSnippet extends Model
     {
         return $this->belongsToMany(User::class, 'favorites');
     }
+    // In App\Models\CodeSnippet.php
+
+    protected $appends = ['tag_names'];
+    protected $hidden = ['tags'];
+
+    public function getTagNamesAttribute()
+    {
+        return $this->tags->pluck('name');
+    }
+
+    public function getKeywordNamesAttribute()
+    {
+        return $this->keywords->pluck('name');
+    }
+
 }

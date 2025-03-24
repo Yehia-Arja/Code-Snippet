@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { request } from "../../utils/remote/axios";
-import { requestMethods } from "../../utils/enums/request.methods";
+import request  from "../../utils/remote/axios";
+import { requestMethods } from "../../utils/enum/requestMethods"
 
 const ProtectedRoute = () => {
   const [loading, setLoading] = useState(true);

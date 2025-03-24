@@ -9,7 +9,7 @@ Route::group(['prefix' => 'v0.1'], function () {
     Route::group([], function () {
         //authenticated routes
         Route::get('/code-snippets', [CodeSnippetController::class, 'index']);
-        Route::post('/code-snippets', [CodeSnippetController::class, 'store']);
+        Route::post('/add-snippet', [CodeSnippetController::class, 'store']);
         Route::get('/code-snippets/{codeSnippet}', [CodeSnippetController::class, 'show']);
         Route::put('/code-snippets/{codeSnippet}', [CodeSnippetController::class, 'update']);
         Route::delete('/code-snippets/{codeSnippet}', [CodeSnippetController::class, 'destroy']);
