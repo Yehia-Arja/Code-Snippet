@@ -4,15 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CodeSnippet;
-use App\Services\ApiResponseService;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Tag;
 use App\Models\Keyword;
-
-class CodeSnippetController extends Controller
-{
-    public function index(Request $request)
-    {
+use App\Http\Requests\CodeSnippetRequest;
+use App\Services\ApiResponseService;
+use Illuminate\Support\Facades\Auth;
+class CodeSnippetController extends Controller{
+    public function index(Request $request){
         $query = CodeSnippet::query();
 
         if ($request->filled('tag')) {
@@ -37,21 +35,17 @@ class CodeSnippetController extends Controller
         return ApiResponseService::success('Snippets retrieved', $snippets);
     }
 
-    public function show(CodeSnippet $codeSnippet)
-    {
+    public function show(CodeSnippet $codeSnippet){
         return ApiResponseService::success('Snippet retrieved', $codeSnippet->load(['tags', 'keywords', 'user']));
     }
 
-    public function store(Request $request)
-    {
+     public function store(CodeSnippetRequest $request){
         return $this->saveSnippet($request);
     }
 
-    public function update(Request $request, CodeSnippet $codeSnippet)
-    {
+    public function update(CodeSnippetRequest $request, CodeSnippet $codeSnippet){
         return $this->saveSnippet($request, $codeSnippet);
-    }
-
+    }   
     public function destroy($id)
     {
         $snippet = CodeSnippet::where('id', $id)
@@ -62,18 +56,9 @@ class CodeSnippetController extends Controller
 
         return ApiResponseService::success('Snippet deleted successfully');
     }
-
-    private function saveSnippet(Request $request, CodeSnippet $codeSnippet=null)
+     private function saveSnippet(CodeSnippetRequest $request, CodeSnippet $codeSnippet = null)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'code' => 'required|string',
-            'language' => 'required|string|max:50',
-            'tags' => 'nullable|string',
-            'keywords' => 'nullable|string',
-        ]);
-
+        $validated = $request->validated();
         $snippet = $codeSnippet ?? new CodeSnippet();
         $snippet->fill($validated);
         $snippet->user_id = Auth::id();
@@ -84,6 +69,8 @@ class CodeSnippetController extends Controller
             $tagNames = array_map('trim', explode(',', $request->tags));
             $tagIds = collect($tagNames)->map(fn($name) => Tag::firstOrCreate(['name' => $name])->id);
             $snippet->tags()->sync($tagIds);
+        } else {
+            $snippet->tags()->detach();
         }
 
         // Handle keywords
@@ -91,9 +78,10 @@ class CodeSnippetController extends Controller
             $keywordNames = array_map('trim', explode(',', $request->keywords));
             $keywordIds = collect($keywordNames)->map(fn($name) => Keyword::firstOrCreate(['name' => $name])->id);
             $snippet->keywords()->sync($keywordIds);
+        } else {
+            $snippet->keywords()->detach();
         }
 
-        $status = $codeSnippet ? 200 : 201;
-        return ApiResponseService::success('Snippet saved successfully', $snippet->load(['tags', 'keywords']), $status);
+        return ApiResponseService::success('Snippet saved successfully', $snippet->load(['tags', 'keywords']));
     }
 }
